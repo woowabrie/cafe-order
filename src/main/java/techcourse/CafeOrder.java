@@ -6,7 +6,7 @@ public class CafeOrder {
         for (int i = 0; i < items.length; i++) {
             int price = 0;
             if (items[i].equals("아메리카노")) {
-                price = 1500;
+                price = 1200;
             } else if (items[i].equals("라떼")) {
                 price = 2000;
             } else if (items[i].equals("모카")) {
@@ -30,7 +30,7 @@ public class CafeOrder {
                 if (!items[i].equals("크로와상")) {
                     int drinkPrice = 0;
                     if (items[i].equals("아메리카노")) {
-                        drinkPrice = 1500;
+                        drinkPrice = 1200;
                     } else if (items[i].equals("라떼")) {
                         drinkPrice = 2000;
                     } else if (items[i].equals("모카")) {
