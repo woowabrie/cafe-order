@@ -1,4 +1,5 @@
 import techcourse.Order;
+import techcourse.Receipt;
 
 public class Application {
 
@@ -6,7 +7,7 @@ public class Application {
         String[] menus = {"아메리카노", "라떼"};
         int[] quantities = {5, 1};
 
-        int orderPrice = Order.order(menus, quantities);
-        System.out.println(orderPrice);
+        Receipt receipt = Order.order(menus, quantities);
+        System.out.println(receipt.getPrice());
     }
 }
