@@ -1,22 +1,16 @@
 package techcourse;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class OrderItems {
 
     private final List<OrderItem> orderItems;
-    private final AmountPromotion amountPromotion;
     private final PercentPromotion percentPromotion;
 
     public OrderItems(List<OrderItem> orderItems) {
-        final Map<Menu, Integer> discountMenus = new HashMap<>();
-        discountMenus.put(Menu.AMERICANO, 300);
         this.orderItems = orderItems;
-        this.amountPromotion = new AmountPromotion(discountMenus);
-        this.percentPromotion = new PercentPromotion();
+        this.percentPromotion = new PercentPromotion(PercentPromotion.DEFAULT_DISCOUNT_PERCENT);
     }
 
     public static OrderItems of(String[] items, int[] quantities) {
@@ -29,7 +23,6 @@ public class OrderItems {
 
     public int calculateTotalPrice() {
         int totalPrice = calculatePriceBeforeApplyPromotion();
-        totalPrice -= amountPromotion.calculateDiscountAmount(this, totalPrice);
         totalPrice -= percentPromotion.calculateDiscountAmount(this, totalPrice);
         return totalPrice;
     }
@@ -44,12 +37,5 @@ public class OrderItems {
         return orderItems.stream()
                 .mapToInt(OrderItem::drinkCount)
                 .sum();
-    }
-
-    public int menuCount(Menu menu) {
-        for (OrderItem orderItem : orderItems) {
-            return orderItem.isAnyMenuCount(menu);
-        }
-        return 0;
     }
 }

@@ -1,19 +1,21 @@
 package techcourse;
 
 public enum Menu {
-    AMERICANO("아메리카노", 1500, MenuCategory.DRINK),
-    LATTE("라떼", 2000, MenuCategory.DRINK),
-    MOCHA("모카", 2500, MenuCategory.DRINK),
-    CROISSANT("크로와상", 3000, MenuCategory.DESERT),
+    AMERICANO("아메리카노", 1500, 300, MenuCategory.DRINK),
+    LATTE("라떼", 2000, 0, MenuCategory.DRINK),
+    MOCHA("모카", 2500, 0, MenuCategory.DRINK),
+    CROISSANT("크로와상", 3000, 0, MenuCategory.DESERT),
     ;
 
     private final String name;
     private final int price;
+    private final int discountPrice;
     private final MenuCategory category;
 
-    Menu(String name, int price, MenuCategory category) {
+    Menu(String name, int price, int discountPrice, MenuCategory category) {
         this.name = name;
         this.price = price;
+        this.discountPrice = discountPrice;
         this.category = category;
     }
 
@@ -31,6 +33,6 @@ public enum Menu {
     }
 
     public int getPrice() {
-        return price;
+        return price - discountPrice;
     }
 }

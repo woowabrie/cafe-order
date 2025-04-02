@@ -25,11 +25,4 @@ public class OrderItem {
         }
         return 0;
     }
-
-    public int isAnyMenuCount(Menu menu) {
-        if (this.menu == menu) {
-            return this.quantity;
-        }
-        return 0;
-    }
 }
