@@ -1,26 +1,24 @@
 package techcourse;
 
 public class OrderItem {
-
-    private final Menu menu;
+    private final Item item;
     private final int quantity;
 
-    private OrderItem(Menu menu, int quantity) {
-        this.menu = menu;
+    private OrderItem(Item item, int quantity) {
+        this.item = item;
         this.quantity = quantity;
     }
 
-    public static OrderItem of(String menuName, int quantity) {
-        Menu menu = Menu.fromString(menuName);
-        return new OrderItem(menu, quantity);
+    public static OrderItem of(Item item, int quantity) {
+        return new OrderItem(item, quantity);
     }
 
     public int totalPrice() {
-        return menu.getPriceApplyDiscount() * quantity;
+        return item.getPriceApplyDiscount() * quantity;
     }
 
     public int drinkCount() {
-        if (menu.isDrink()) {
+        if (item.isDrink()) {
             return quantity;
         }
         return 0;

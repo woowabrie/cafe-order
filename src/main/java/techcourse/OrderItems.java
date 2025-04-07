@@ -4,33 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderItems {
-
-    private static final int DEFAULT_DRINK_DISCOUNT_COUNT = 5;
-    private static int DEFAULT_DISCOUNT_PERCENT = 10;
-
     private final List<OrderItem> orderItems;
 
-    public OrderItems(List<OrderItem> orderItems) {
+    private OrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
-    public static OrderItems of(String[] items, int[] quantities) {
+    public static OrderItems of(Items items, String[] orderItemNames, int[] orderQuantities) {
         List<OrderItem> orderItems = new ArrayList<>();
-        for (int i = 0; i < items.length; i++) {
-            orderItems.add(OrderItem.of(items[i], quantities[i]));
+        for (int i = 0; i < orderItemNames.length; i++) {
+            Item item = items.itemFrom(orderItemNames[i]);
+            orderItems.add(OrderItem.of(item, orderQuantities[i]));
         }
         return new OrderItems(orderItems);
     }
 
-    public int calculateTotalPrice() {
-        int totalPrice = calculatePriceBeforeApplyPromotion();
-        if (drinkCount() >= DEFAULT_DRINK_DISCOUNT_COUNT) {
-            totalPrice -= totalPrice / DEFAULT_DISCOUNT_PERCENT;
-        }
-        return totalPrice;
-    }
-
-    private int calculatePriceBeforeApplyPromotion() {
+    public int sumAllPrices() {
         return orderItems.stream()
                 .mapToInt(OrderItem::totalPrice)
                 .sum();
