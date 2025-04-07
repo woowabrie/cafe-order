@@ -5,12 +5,13 @@ import java.util.List;
 
 public class OrderItems {
 
+    private static final int DEFAULT_DRINK_DISCOUNT_COUNT = 5;
+    private static int DEFAULT_DISCOUNT_PERCENT = 10;
+
     private final List<OrderItem> orderItems;
-    private final PercentPromotion percentPromotion;
 
     public OrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
-        this.percentPromotion = new PercentPromotion(PercentPromotion.DEFAULT_DISCOUNT_PERCENT);
     }
 
     public static OrderItems of(String[] items, int[] quantities) {
@@ -23,7 +24,9 @@ public class OrderItems {
 
     public int calculateTotalPrice() {
         int totalPrice = calculatePriceBeforeApplyPromotion();
-        totalPrice -= percentPromotion.calculateDiscountAmount(this, totalPrice);
+        if (drinkCount() >= DEFAULT_DRINK_DISCOUNT_COUNT) {
+            totalPrice -= totalPrice / DEFAULT_DISCOUNT_PERCENT;
+        }
         return totalPrice;
     }
 

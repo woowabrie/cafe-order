@@ -32,7 +32,7 @@ public enum Menu {
         return this.category == MenuCategory.DRINK;
     }
 
-    public int getPrice() {
+    public int getPriceApplyDiscount() {
         return price - discountPrice;
     }
 }

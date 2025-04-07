@@ -16,7 +16,7 @@ public class OrderItem {
     }
 
     public int totalPrice() {
-        return menu.getPrice() * quantity;
+        return menu.getPriceApplyDiscount() * quantity;
     }
 
     public int drinkCount() {
