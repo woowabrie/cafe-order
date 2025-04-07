@@ -6,7 +6,7 @@ import techcourse.Order;
 import techcourse.OrderItems;
 
 public class Application {
-    public static void main(String[] args) {
+    private static Order getOrder() {
         String[] menus = {"아메리카노", "라떼"};
         int[] quantities = {5, 1};
         Items items = new Items(List.of(
@@ -15,7 +15,11 @@ public class Application {
                 new Item("모카", 2500, 0, MenuCategory.DRINK),
                 new Item("크로와상", 3000, 0, MenuCategory.DESERT)
         ));
-        Order order = new Order(OrderItems.of(items, menus, quantities));
+        return new Order(OrderItems.of(items, menus, quantities));
+    }
+
+    public static void main(String[] args) {
+        Order order = getOrder();
 
         int orderPrice = order.calculateTotalPrice();
         System.out.println(orderPrice);
