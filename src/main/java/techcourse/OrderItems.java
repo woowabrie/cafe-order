@@ -30,4 +30,11 @@ public class OrderItems {
                 .mapToInt(OrderItem::drinkCount)
                 .sum();
     }
+
+    public int sumDrinkPrices() {
+        return orderItems.stream()
+                .filter(OrderItem::isDrink)
+                .mapToInt(OrderItem::totalPrice)
+                .sum();
+    }
 }

@@ -23,4 +23,8 @@ public class OrderItem {
         }
         return 0;
     }
+
+    public boolean isDrink() {
+        return item.isDrink();
+    }
 }

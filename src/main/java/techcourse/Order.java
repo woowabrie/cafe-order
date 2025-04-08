@@ -13,7 +13,7 @@ public class Order {
     public int calculateTotalPrice() {
         int totalPrice = orderItems.sumAllPrices();
         if (orderItems.drinkCount() >= DEFAULT_DRINK_DISCOUNT_COUNT) {
-            totalPrice -= totalPrice / DEFAULT_DISCOUNT_PERCENT;
+            totalPrice -= orderItems.sumDrinkPrices() / DEFAULT_DISCOUNT_PERCENT;
         }
         return totalPrice;
     }
