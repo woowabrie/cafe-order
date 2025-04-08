@@ -20,54 +20,54 @@ class OrderItemsTest {
     }
 
     @Test
-    @DisplayName("주문 상품의 전체 가격을 계산한다.")
+    @DisplayName("주문한 상품의 가격을 계산한다")
     void test() {
         // given
-        OrderItems orderItems = OrderItems.of(items, new String[]{"크로와상", "라떼"}, new int[]{2, 2});
+        OrderItems orderItems = OrderItems.of(items, new String[]{"라떼", "모카", "크로와상"}, new int[]{1, 1, 1});
 
         // when
-        int allPrices = orderItems.sumAllPrices();
+        int totalPrice = orderItems.calculateTotalPrice();
 
         // then
-        Assertions.assertThat(allPrices).isEqualTo(10000);
+        Assertions.assertThat(totalPrice).isEqualTo(7500);
     }
 
     @Test
-    @DisplayName("주문 상품의 개별 할인을 적용한 전체 가격을 계산한다.")
+    @DisplayName("주문한 상품의 대형 손님 환영 프로모션을 적용한 가격을 계산한다")
     void test2() {
         // given
-        OrderItems orderItems = OrderItems.of(items, new String[]{"아메리카노", "라떼"}, new int[]{2, 2});
+        OrderItems orderItems = OrderItems.of(items, new String[]{"라떼", "모카"}, new int[]{2, 3});
 
         // when
-        int allPrices = orderItems.sumAllPrices();
+        int totalPrice = orderItems.calculateTotalPrice();
 
         // then
-        Assertions.assertThat(allPrices).isEqualTo(6400);
+        Assertions.assertThat(totalPrice).isEqualTo(10350);
     }
 
     @Test
-    @DisplayName("주문 상품의 음료 개수를 계산한다.")
+    @DisplayName("주문한 상품의 대형 손님 환영 프로모션을 적용한 가격을 계산한다")
     void test3() {
         // given
-        OrderItems orderItems = OrderItems.of(items, new String[]{"아메리카노", "라떼", "크로와상"}, new int[]{2, 2, 2});
+        OrderItems orderItems = OrderItems.of(items, new String[]{"라떼", "모카"}, new int[]{2, 3});
 
         // when
-        int drinkCount = orderItems.drinkCount();
+        int totalPrice = orderItems.calculateTotalPrice();
 
         // then
-        Assertions.assertThat(drinkCount).isEqualTo(4);
+        Assertions.assertThat(totalPrice).isEqualTo(10350);
     }
 
     @Test
-    @DisplayName("주문 상품 중 음료 카테고리의 가격을 계산한다.")
+    @DisplayName("디저트가 포함된 주문에서 대형 손님 환영 프로모션을 적용한 가격을 계산한다")
     void test4() {
         // given
-        OrderItems orderItems = OrderItems.of(items, new String[]{"아메리카노", "라떼", "크로와상"}, new int[]{2, 2, 2});
+        OrderItems orderItems = OrderItems.of(items, new String[]{"라떼", "모카", "크로와상"}, new int[]{2, 3, 1});
 
         // when
-        int drinkPrices = orderItems.sumDrinkPrices();
+        int totalPrice = orderItems.calculateTotalPrice();
 
         // then
-        Assertions.assertThat(drinkPrices).isEqualTo(6400);
+        Assertions.assertThat(totalPrice).isEqualTo(13350);
     }
 }

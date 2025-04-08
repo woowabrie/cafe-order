@@ -30,4 +30,17 @@ class OrderItemTest {
         // then
         Assertions.assertThat(drinkCount).isEqualTo(5);
     }
+
+    @Test
+    @DisplayName("주문 상품이 음료인지 아닌지 판단한다.")
+    void test3() {
+        // given
+        OrderItem orderItem = OrderItem.of(new Item("아이템", 1500, 0, MenuCategory.DRINK), 5);
+
+        // when
+        boolean isDrink = orderItem.isDrink();
+
+        // then
+        Assertions.assertThat(isDrink).isTrue();
+    }
 }
