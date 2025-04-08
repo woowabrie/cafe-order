@@ -58,6 +58,19 @@ class OrderTest {
         Assertions.assertThat(totalPrice).isEqualTo(10350);
     }
 
+    @Test
+    @DisplayName("디저트가 포함된 주문에서 대형 손님 환영 프로모션을 적용한 가격을 계산한다")
+    void test4() {
+        // given
+        Order order = createOrder(new String[]{"라떼", "모카", "크로와상"}, new int[]{2, 3, 1});
+
+        // when
+        int totalPrice = order.calculateTotalPrice();
+
+        // then
+        Assertions.assertThat(totalPrice).isEqualTo(13350);
+    }
+
     private Order createOrder(String[] names, int[] quantities) {
         return new Order(OrderItems.of(items, names, quantities));
     }

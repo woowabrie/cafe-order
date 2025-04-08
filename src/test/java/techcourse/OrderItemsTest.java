@@ -19,7 +19,6 @@ class OrderItemsTest {
         ));
     }
 
-
     @Test
     @DisplayName("주문 상품의 전체 가격을 계산한다.")
     void test() {
@@ -57,5 +56,18 @@ class OrderItemsTest {
 
         // then
         Assertions.assertThat(drinkCount).isEqualTo(4);
+    }
+
+    @Test
+    @DisplayName("주문 상품 중 음료 카테고리의 가격을 계산한다.")
+    void test4() {
+        // given
+        OrderItems orderItems = OrderItems.of(items, new String[]{"아메리카노", "라떼", "크로와상"}, new int[]{2, 2, 2});
+
+        // when
+        int drinkPrices = orderItems.sumDrinkPrices();
+
+        // then
+        Assertions.assertThat(drinkPrices).isEqualTo(6400);
     }
 }
