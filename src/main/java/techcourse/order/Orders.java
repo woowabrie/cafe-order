@@ -1,4 +1,7 @@
-package techcourse;
+package techcourse.order;
+
+import techcourse.cafe_item.CafeItemType;
+import techcourse.cafe_item.CafeItems;
 
 import java.util.List;
 import java.util.stream.IntStream;

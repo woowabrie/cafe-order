@@ -1,4 +1,7 @@
-package techcourse;
+package techcourse.discount_policy;
+
+import techcourse.cafe_item.CafeItemType;
+import techcourse.order.Orders;
 
 public class DrinkDiscountPolicy implements DiscountPolicy {
 

@@ -1,4 +1,4 @@
-package techcourse;
+package techcourse.cafe_item;
 
 public enum CafeItems {
     아메리카노(1500, CafeItemType.DRINK),

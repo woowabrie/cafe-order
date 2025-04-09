@@ -1,5 +1,10 @@
 package techcourse;
 
+import techcourse.discount_policy.AmericanoDiscountPolicy;
+import techcourse.discount_policy.DiscountPolicy;
+import techcourse.discount_policy.DrinkDiscountPolicy;
+import techcourse.order.Orders;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
