@@ -2,11 +2,13 @@ package techcourse;
 
 public class Order {
 
+    private static final int MIN_QUANTITY = 1;
+
     private final CafeItems item;
     private final int quantity;
 
     public Order(final String itemName, final int quantity) {
-        if (quantity < 1) {
+        if (quantity < MIN_QUANTITY) {
             throw new IllegalArgumentException("최소 수량은 1개 입니다.");
         }
         this.item = CafeItems.valueOf(itemName);
