@@ -29,6 +29,13 @@ public class Orders {
                 .sum();
     }
 
+    public int countOf(final CafeItems cafeItem) {
+        return orders.stream()
+                .filter(order -> order.isTypeOf(cafeItem))
+                .mapToInt(Order::quantity)
+                .sum();
+    }
+
     public int calculateTotalPriceOf(final CafeItemType cafeItemType) {
         return orders.stream()
                 .filter(order -> order.isTypeOf(cafeItemType))

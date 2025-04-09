@@ -21,6 +21,10 @@ public class Order {
         return item.isTypeOf(cafeItemType);
     }
 
+    public boolean isTypeOf(final CafeItems cafeItem) {
+        return item == cafeItem;
+    }
+
     public int quantity() {
         return quantity;
     }

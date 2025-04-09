@@ -62,13 +62,13 @@ class CafeOrdersTest {
         }
 
         @Test
-        void 아메리카노_할인이_음료5잔_할인보다_먼저_적용된다() {
+        void 아메리카노_할인이_음료5잔_할인이_같이_적용될_수_있다() {
             final String[] items = items("라떼", "아메리카노");
             final int[] quantities = quantities(3, 2);
 
             final int result = CafeOrder.calculateTotalPrice(items, quantities);
 
-            assertThat(result).isEqualTo((int) ((2000 * 3 + (1500 - 300) * 2) * 0.9));
+            assertThat(result).isEqualTo((int) (((2000 * 3 + 1500 * 2) * 0.9) - 300 * 2));
         }
 
         @Test
