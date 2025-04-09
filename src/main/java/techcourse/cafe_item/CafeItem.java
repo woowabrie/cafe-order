@@ -1,6 +1,6 @@
 package techcourse.cafe_item;
 
-public enum CafeItems {
+public enum CafeItem {
     아메리카노(1500, CafeItemType.DRINK),
     라떼(2000, CafeItemType.DRINK),
     모카(2500, CafeItemType.DRINK),
@@ -10,7 +10,7 @@ public enum CafeItems {
     private final int price;
     private final CafeItemType type;
 
-    CafeItems(final int price, final CafeItemType type) {
+    CafeItem(final int price, final CafeItemType type) {
         this.price = price;
         this.type = type;
     }

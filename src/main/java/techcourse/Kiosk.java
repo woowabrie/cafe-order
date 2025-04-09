@@ -1,15 +1,15 @@
 package techcourse;
 
+import techcourse.cafe_order.CafeOrders;
 import techcourse.discount_policy.AmericanoDiscountPolicy;
 import techcourse.discount_policy.DiscountPolicy;
 import techcourse.discount_policy.DrinkDiscountPolicy;
-import techcourse.order.Orders;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class CafeOrder {
+public class Kiosk {
 
     private static final Set<DiscountPolicy> DEFAULT_DISCOUNT_POLICIES = Set.of(
             new AmericanoDiscountPolicy(),
@@ -18,11 +18,11 @@ public class CafeOrder {
 
     private final Set<DiscountPolicy> discountPolicies;
 
-    public CafeOrder(final Set<DiscountPolicy> discountPolicies) {
+    public Kiosk(final Set<DiscountPolicy> discountPolicies) {
         this.discountPolicies = discountPolicies;
     }
 
-    public CafeOrder() {
+    public Kiosk() {
         this(DEFAULT_DISCOUNT_POLICIES);
     }
 
@@ -31,17 +31,17 @@ public class CafeOrder {
     }
 
     private int calculateTotalPrice(final List<String> items, final List<Integer> quantities) {
-        final Orders orders = new Orders(items, quantities);
-        final int total = orders.calculateTotalPrice();
+        final CafeOrders cafeOrders = new CafeOrders(items, quantities);
+        final int total = cafeOrders.calculateTotalPrice();
 
-        final int totalDiscountAmount = calculateTotalDiscountAmount(orders);
+        final int totalDiscountAmount = calculateTotalDiscountAmount(cafeOrders);
 
         return total - totalDiscountAmount;
     }
 
-    private int calculateTotalDiscountAmount(final Orders orders) {
+    private int calculateTotalDiscountAmount(final CafeOrders cafeOrders) {
         return discountPolicies.stream()
-                .mapToInt(policy -> policy.discountableAmount(orders))
+                .mapToInt(policy -> policy.discountableAmount(cafeOrders))
                 .sum();
     }
 }
