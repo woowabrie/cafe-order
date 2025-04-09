@@ -1,6 +1,7 @@
 package techcourse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -37,5 +38,11 @@ public record Order(String[] items, int[] quantities) {
                 filteredItems.toArray(new String[0]),
                 filteredQuantities.stream().mapToInt(Integer::intValue).toArray()
         );
+    }
+
+    public CafeItems[] cafeItems() {
+        return Arrays.stream(items)
+                .map(CafeItems::valueOf)
+                .toArray(CafeItems[]::new);
     }
 }
