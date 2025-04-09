@@ -1,7 +1,26 @@
 package techcourse;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class CafeOrder {
+
+    private static final Set<String> availableItemNames = Set.of("아메리카노", "라떼", "모카", "크로와상");
+
     public static int calculateTotalPrice(String[] items, int[] quantities) {
+
+        final List<String> filteredItems = new ArrayList<>();
+        final List<Integer> filteredQuantities = new ArrayList<>();
+        for (int i = 0; i < items.length; i++) {
+            if (availableItemNames.contains(items[i]) && quantities[i] > 0) {
+                filteredItems.add(items[i]);
+                filteredQuantities.add(quantities[i]);
+            }
+        }
+        items = filteredItems.toArray(new String[0]);
+        quantities = filteredQuantities.stream().mapToInt(Integer::intValue).toArray();
+
         int total = 0;
         for (int i = 0; i < items.length; i++) {
             int price = 0;
