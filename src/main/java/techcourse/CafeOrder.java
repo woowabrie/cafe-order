@@ -1,7 +1,5 @@
 package techcourse;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class CafeOrder {
@@ -9,18 +7,22 @@ public class CafeOrder {
     private static final Set<String> availableItemNames = Set.of("아메리카노", "라떼", "모카", "크로와상");
 
     public static int calculateTotalPrice(String[] items, int[] quantities) {
+        final Order order = new Order(items, quantities)
+                .filterItemNameNonExistIn(availableItemNames)
+                .filterQuantityLowThan(1);
 
-        final List<String> filteredItems = new ArrayList<>();
-        final List<Integer> filteredQuantities = new ArrayList<>();
-        for (int i = 0; i < items.length; i++) {
-            if (availableItemNames.contains(items[i]) && quantities[i] > 0) {
-                filteredItems.add(items[i]);
-                filteredQuantities.add(quantities[i]);
-            }
-        }
-        items = filteredItems.toArray(new String[0]);
-        quantities = filteredQuantities.stream().mapToInt(Integer::intValue).toArray();
+        items = order.items();
+        quantities = order.quantities();
 
+        int total = calculateDefaultTotalPrice(items, quantities);
+
+        int drinkCount = getDrinkCount(items, quantities);
+        total -= calculateDrinkDiscountablePrice(items, quantities, drinkCount, total);
+
+        return total;
+    }
+
+    private static int calculateDefaultTotalPrice(final String[] items, final int[] quantities) {
         int total = 0;
         for (int i = 0; i < items.length; i++) {
             int price = 0;
@@ -35,14 +37,20 @@ public class CafeOrder {
             }
             total += price * quantities[i];
         }
+        return total;
+    }
 
+    private static int getDrinkCount(final String[] items, final int[] quantities) {
         int drinkCount = 0;
         for (int i = 0; i < items.length; i++) {
             if (!items[i].equals("크로와상")) {
                 drinkCount += quantities[i];
             }
         }
+        return drinkCount;
+    }
 
+    private static int calculateDrinkDiscountablePrice(final String[] items, final int[] quantities, final int drinkCount, int total) {
         if (drinkCount >= 5) {
             int drinkTotal = 0;
             for (int i = 0; i < items.length; i++) {
@@ -58,9 +66,8 @@ public class CafeOrder {
                     drinkTotal += drinkPrice * quantities[i];
                 }
             }
-            total -= drinkTotal / 10;
+            return drinkTotal / 10;
         }
-
-        return total;
+        return 0;
     }
 }
