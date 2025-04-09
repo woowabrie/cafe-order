@@ -16,7 +16,7 @@ class CafeOrdersTest {
             final String[] items = items("라떼", "모카", "크로와상");
             final int[] quantities = quantities(1, 1, 1);
 
-            final int result = CafeOrder.calculateTotalPrice(items, quantities);
+            final int result = new CafeOrder().calculateTotalPrice(items, quantities);
 
             assertThat(result).isEqualTo(2000 + 2500 + 3000);
         }
@@ -26,7 +26,7 @@ class CafeOrdersTest {
             final String[] items = items("라떼", "모카", "크로와상");
             final int[] quantities = quantities(2, 1, 1);
 
-            final int result = CafeOrder.calculateTotalPrice(items, quantities);
+            final int result = new CafeOrder().calculateTotalPrice(items, quantities);
 
             assertThat(result).isEqualTo(2000 * 2 + 2500 + 3000);
         }
@@ -36,7 +36,7 @@ class CafeOrdersTest {
             final String[] items = items("라떼", "모카", "크로와상", "라떼");
             final int[] quantities = quantities(1, 1, 1, 1);
 
-            final int result = CafeOrder.calculateTotalPrice(items, quantities);
+            final int result = new CafeOrder().calculateTotalPrice(items, quantities);
 
             assertThat(result).isEqualTo(2000 + 2500 + 3000 + 2000);
         }
@@ -46,7 +46,7 @@ class CafeOrdersTest {
             final String[] items = items("아메리카노");
             final int[] quantities = quantities(2);
 
-            final int result = CafeOrder.calculateTotalPrice(items, quantities);
+            final int result = new CafeOrder().calculateTotalPrice(items, quantities);
 
             assertThat(result).isEqualTo((1500 - 300) * 2);
         }
@@ -56,7 +56,7 @@ class CafeOrdersTest {
             final String[] items = items("라떼", "모카");
             final int[] quantities = quantities(3, 2);
 
-            final int result = CafeOrder.calculateTotalPrice(items, quantities);
+            final int result = new CafeOrder().calculateTotalPrice(items, quantities);
 
             assertThat(result).isEqualTo((int) ((2000 * 3 + 2500 * 2) * 0.9));
         }
@@ -66,7 +66,7 @@ class CafeOrdersTest {
             final String[] items = items("라떼", "아메리카노");
             final int[] quantities = quantities(3, 2);
 
-            final int result = CafeOrder.calculateTotalPrice(items, quantities);
+            final int result = new CafeOrder().calculateTotalPrice(items, quantities);
 
             assertThat(result).isEqualTo((int) (((2000 * 3 + 1500 * 2) * 0.9) - 300 * 2));
         }
@@ -76,7 +76,7 @@ class CafeOrdersTest {
             final String[] items = items("라떼", "모카", "크로와상", "쓰껄깍");
             final int[] quantities = quantities(1, 1, 1, 100);
 
-            assertThatThrownBy(() -> CafeOrder.calculateTotalPrice(items, quantities))
+            assertThatThrownBy(() -> new CafeOrder().calculateTotalPrice(items, quantities))
                     .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -86,7 +86,7 @@ class CafeOrdersTest {
             final String[] items = items("라떼", "모카");
             final int[] quantities = quantities(1, invalidQuantity);
 
-            assertThatThrownBy(() -> CafeOrder.calculateTotalPrice(items, quantities))
+            assertThatThrownBy(() -> new CafeOrder().calculateTotalPrice(items, quantities))
                     .isInstanceOf(IllegalArgumentException.class);
         }
     }

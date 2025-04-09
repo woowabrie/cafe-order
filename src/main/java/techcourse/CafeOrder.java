@@ -6,16 +6,26 @@ import java.util.Set;
 
 public class CafeOrder {
 
-    private static final Set<DiscountPolicy> DISCOUNT_POLICIES = Set.of(
+    private static final Set<DiscountPolicy> DEFAULT_DISCOUNT_POLICIES = Set.of(
             new AmericanoDiscountPolicy(),
             new DrinkDiscountPolicy()
     );
 
-    public static int calculateTotalPrice(final String[] items, final int[] quantities) {
+    private final Set<DiscountPolicy> discountPolicies;
+
+    public CafeOrder(final Set<DiscountPolicy> discountPolicies) {
+        this.discountPolicies = discountPolicies;
+    }
+
+    public CafeOrder() {
+        this(DEFAULT_DISCOUNT_POLICIES);
+    }
+
+    public int calculateTotalPrice(final String[] items, final int[] quantities) {
         return calculateTotalPrice(Arrays.stream(items).toList(), Arrays.stream(quantities).boxed().toList());
     }
 
-    private static int calculateTotalPrice(final List<String> items, final List<Integer> quantities) {
+    private int calculateTotalPrice(final List<String> items, final List<Integer> quantities) {
         final Orders orders = new Orders(items, quantities);
         final int total = orders.calculateTotalPrice();
 
@@ -24,8 +34,8 @@ public class CafeOrder {
         return total - totalDiscountAmount;
     }
 
-    private static int calculateTotalDiscountAmount(final Orders orders) {
-        return DISCOUNT_POLICIES.stream()
+    private int calculateTotalDiscountAmount(final Orders orders) {
+        return discountPolicies.stream()
                 .mapToInt(policy -> policy.discountableAmount(orders))
                 .sum();
     }
