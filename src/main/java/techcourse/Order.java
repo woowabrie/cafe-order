@@ -1,48 +1,27 @@
 package techcourse;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
 public class Order {
 
-    private final List<CafeItems> items;
-    private final List<Integer> quantities;
+    private final CafeItems item;
+    private final int quantity;
 
-    public Order(final List<CafeItems> items, final List<Integer> quantities) {
-        this.items = items;
-        this.quantities = quantities;
-    }
-
-    public static Order withFilterNames(final String[] items, final int[] quantities, final Set<String> availableItemNames) {
-        final List<CafeItems> cafeItems = Arrays.stream(items)
-                .filter(availableItemNames::contains)
-                .map(CafeItems::valueOf)
-                .toList();
-
-        return new Order(cafeItems, Arrays.stream(quantities).boxed().toList());
-    }
-
-    public Order filterQuantityLowThan(final int quantityThreshold) {
-        final List<CafeItems> filteredItems = new ArrayList<>();
-        final List<Integer> filteredQuantities = new ArrayList<>();
-
-        for (int i = 0; i < items.size(); i++) {
-            if (quantities.get(i) >= quantityThreshold) {
-                filteredItems.add(items.get(i));
-                filteredQuantities.add(quantities.get(i));
-            }
+    public Order(final String itemName, final int quantity) {
+        if (quantity < 1) {
+            throw new IllegalArgumentException("최소 수량은 1개 입니다.");
         }
-
-        return new Order(filteredItems, filteredQuantities);
+        this.item = CafeItems.valueOf(itemName);
+        this.quantity = quantity;
     }
 
-    public List<CafeItems> items() {
-        return items;
+    public int calculatePrice() {
+        return item.getPriceOf(quantity);
     }
 
-    public List<Integer> quantities() {
-        return quantities;
+    public boolean isTypeOf(final CafeItemType cafeItemType) {
+        return item.isTypeOf(cafeItemType);
+    }
+
+    public int quantity() {
+        return quantity;
     }
 }

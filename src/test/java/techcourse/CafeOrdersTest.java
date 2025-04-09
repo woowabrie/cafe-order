@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
 
-class CafeOrderTest {
+class CafeOrdersTest {
 
     @Nested
     class 총_가격_구하기_테스트 {
@@ -72,24 +72,22 @@ class CafeOrderTest {
         }
 
         @Test
-        void 존재하지_않는_메뉴는_무시된다() {
+        void 존재하지_않는_메뉴라면_예외가_발생한다() {
             final String[] items = items("라떼", "모카", "크로와상", "쓰껄깍");
             final int[] quantities = quantities(1, 1, 1, 100);
 
-            final int result = CafeOrder.calculateTotalPrice(items, quantities);
-
-            assertThat(result).isEqualTo(2000 + 2500 + 3000);
+            assertThatThrownBy(() -> CafeOrder.calculateTotalPrice(items, quantities))
+                    .isInstanceOf(IllegalArgumentException.class);
         }
 
         @ParameterizedTest
         @ValueSource(ints = {-1, 0})
-        void 수량이_0_이하면_무시된다(final int invalidQuantity) {
+        void 수량이_0_이하면_예외가_발생한다(final int invalidQuantity) {
             final String[] items = items("라떼", "모카");
             final int[] quantities = quantities(1, invalidQuantity);
 
-            final int result = CafeOrder.calculateTotalPrice(items, quantities);
-
-            assertThat(result).isEqualTo(2000);
+            assertThatThrownBy(() -> CafeOrder.calculateTotalPrice(items, quantities))
+                    .isInstanceOf(IllegalArgumentException.class);
         }
     }
 
