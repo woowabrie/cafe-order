@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
 
-class CafeCafeOrdersTest {
+class KioskTest {
 
     @Nested
     class 총_가격_구하기_테스트 {
