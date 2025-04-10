@@ -3,6 +3,7 @@ package techcourse;
 import techcourse.cafe_order.CafeOrders;
 import techcourse.discount_policy.AmericanoDiscountPolicy;
 import techcourse.discount_policy.DiscountPolicy;
+import techcourse.discount_policy.DiscountRequest;
 import techcourse.discount_policy.DrinkDiscountPolicy;
 
 import java.time.LocalDateTime;
@@ -35,14 +36,15 @@ public class Kiosk {
         final CafeOrders cafeOrders = new CafeOrders(items, quantities, orderDateTime);
         final int total = cafeOrders.calculateTotalPrice();
 
-        final int totalDiscountAmount = calculateTotalDiscountAmount(cafeOrders);
+        final int totalDiscountAmount = calculateTotalDiscountAmount(cafeOrders, orderDateTime);
 
         return total - totalDiscountAmount;
     }
 
-    private int calculateTotalDiscountAmount(final CafeOrders cafeOrders) {
+    private int calculateTotalDiscountAmount(final CafeOrders cafeOrders, final LocalDateTime orderDateTime) {
+        final DiscountRequest request = new DiscountRequest(cafeOrders, orderDateTime);
         return discountPolicies.stream()
-                .mapToInt(policy -> policy.discountableAmount(cafeOrders))
+                .mapToInt(policy -> policy.discountableAmount(request))
                 .sum();
     }
 }
