@@ -3,6 +3,7 @@ package techcourse.cafe_order;
 import techcourse.cafe_item.CafeItem;
 import techcourse.cafe_item.CafeItemType;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -10,12 +11,12 @@ public class CafeOrders {
 
     private final List<CafeOrder> cafeOrders;
 
-    public CafeOrders(final List<String> items, final List<Integer> quantities) {
+    public CafeOrders(final List<String> items, final List<Integer> quantities, final LocalDateTime orderDateTime) {
         if (items.size() != quantities.size()) {
             throw new IllegalArgumentException("아이템과 수량의 개수가 다릅니다.");
         }
         this.cafeOrders = IntStream.range(0, items.size())
-                .mapToObj(i -> new CafeOrder(items.get(i), quantities.get(i)))
+                .mapToObj(i -> new CafeOrder(items.get(i), quantities.get(i), orderDateTime))
                 .toList();
     }
 

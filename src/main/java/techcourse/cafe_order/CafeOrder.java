@@ -1,7 +1,10 @@
 package techcourse.cafe_order;
 
 import techcourse.cafe_item.CafeItem;
+import techcourse.cafe_item.CafeItemSellDuration;
 import techcourse.cafe_item.CafeItemType;
+
+import java.time.LocalDateTime;
 
 public class CafeOrder {
 
@@ -10,11 +13,15 @@ public class CafeOrder {
     private final CafeItem item;
     private final int quantity;
 
-    public CafeOrder(final String itemName, final int quantity) {
+    public CafeOrder(final String itemName, final int quantity, final LocalDateTime orderDateTime) {
         if (quantity < MIN_QUANTITY) {
             throw new IllegalArgumentException("최소 수량은 1개 입니다.");
         }
-        this.item = CafeItem.valueOf(itemName);
+        final CafeItem item = CafeItem.findByName(itemName);
+        if (!CafeItemSellDuration.isSellable(item, orderDateTime)) {
+            throw new IllegalArgumentException("현재 판매중이지 않은 제품입니다.");
+        }
+        this.item = item;
         this.quantity = quantity;
     }
 

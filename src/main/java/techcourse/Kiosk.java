@@ -5,6 +5,7 @@ import techcourse.discount_policy.AmericanoDiscountPolicy;
 import techcourse.discount_policy.DiscountPolicy;
 import techcourse.discount_policy.DrinkDiscountPolicy;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -26,12 +27,12 @@ public class Kiosk {
         this(DEFAULT_DISCOUNT_POLICIES);
     }
 
-    public int calculateTotalPrice(final String[] items, final int[] quantities) {
-        return calculateTotalPrice(Arrays.stream(items).toList(), Arrays.stream(quantities).boxed().toList());
+    public int calculateTotalPrice(final String[] items, final int[] quantities, final LocalDateTime orderDateTime) {
+        return calculateTotalPrice(Arrays.stream(items).toList(), Arrays.stream(quantities).boxed().toList(), orderDateTime);
     }
 
-    private int calculateTotalPrice(final List<String> items, final List<Integer> quantities) {
-        final CafeOrders cafeOrders = new CafeOrders(items, quantities);
+    private int calculateTotalPrice(final List<String> items, final List<Integer> quantities, final LocalDateTime orderDateTime) {
+        final CafeOrders cafeOrders = new CafeOrders(items, quantities, orderDateTime);
         final int total = cafeOrders.calculateTotalPrice();
 
         final int totalDiscountAmount = calculateTotalDiscountAmount(cafeOrders);
