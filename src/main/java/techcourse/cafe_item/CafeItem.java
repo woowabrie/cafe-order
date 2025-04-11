@@ -1,5 +1,6 @@
 package techcourse.cafe_item;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public enum CafeItem {
@@ -28,6 +29,10 @@ public enum CafeItem {
 
     private static String getFormattedName(final CafeItem value) {
         return value.name().replaceAll("_", " ");
+    }
+
+    public boolean isSellable(final LocalDateTime sellDateTime) {
+        return CafeItemSellDuration.isSellable(this, sellDateTime);
     }
 
     public int getPriceOf(final int quantity) {
