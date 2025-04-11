@@ -9,13 +9,15 @@ public class SellDuration {
     private final LocalDateTime endExclusive;
 
     public SellDuration(final LocalDateTime startInclusive, final LocalDateTime endExclusive) {
+        if (startInclusive.isAfter(endExclusive)) {
+            throw new IllegalArgumentException("시작 시간은 종료 시간보다 늦을 수 없습니다.");
+        }
         this.startInclusive = startInclusive;
         this.endExclusive = endExclusive;
     }
 
     public SellDuration(final LocalDate startInclusive, final LocalDate endExclusive) {
-        this.startInclusive = startInclusive.atStartOfDay();
-        this.endExclusive = endExclusive.atStartOfDay();
+        this(startInclusive.atStartOfDay(), endExclusive.atStartOfDay());
     }
 
     public boolean isBetween(final LocalDateTime sellDateTime) {
